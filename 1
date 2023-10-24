@@ -1,0 +1,67 @@
+public class House {
+    private int id;
+    private int apartmentNumber;
+    private double area;
+    private int floor;
+    private int numberOfRooms;
+    private String street;
+    private String buildingType;
+    private int yearsInUse;
+
+   
+    public House(int id, int apartmentNumber, double area, int floor, int numberOfRooms, String street, String buildingType, int yearsInUse) {
+        this.id = id;
+        this.apartmentNumber = apartmentNumber;
+        this.area = area;
+        this.floor = floor;
+        this.numberOfRooms = numberOfRooms;
+        this.street = street;
+        this.buildingType = buildingType;
+        this.yearsInUse = yearsInUse;
+    }
+
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setApartmentNumber(int apartmentNumber) {
+        this.apartmentNumber = apartmentNumber;
+    }
+
+    public int getApartmentNumber() {
+        return apartmentNumber;
+    }
+
+    
+    public static House[] createHouseArray() {
+        House[] houses = new House[5]; 
+
+        houses[0] = new House(1, 101, 75.5, 2, 3, "Street 1", "Bagatokvarturni", 10);
+        houses[1] = new House(2, 202, 90.0, 5, 4, "Street 2", "Privatni", 5);
+        houses[2] = new House(3, 303, 60.0, 3, 2, "Street 3", "Bagatokvartirni", 15);
+        houses[3] = new House(4, 404, 110.0, 7, 5, "Street 4", "Privatni", 8);
+        houses[4] = new House(5, 505, 80.0, 4, 3, "Street 5", "Bagatokvartirni", 12);
+
+        return houses;
+    }
+
+  
+    @Override
+    public String toString() {
+        return "House{" +
+                "id=" + id +
+                ", apartmentNumber=" + apartmentNumber +
+                ", area=" + area +
+                ", floor=" + floor +
+                ", numberOfRooms=" + numberOfRooms +
+                ", street='" + street + '\'' +
+                ", buildingType='" + buildingType + '\'' +
+                ", yearsInUse=" + yearsInUse +
+                '}';
+    }
+}
