@@ -1,0 +1,83 @@
+class RationalFraction {
+    private int numerator;
+    private int denominator;
+
+    public RationalFraction(int numerator, int denominator) {
+        this.numerator = numerator;
+        if (denominator != 0) {
+            this.denominator = denominator;
+        } else {
+            throw new IllegalArgumentException("Denominator cannot be zero.");
+        }
+    }
+
+    public double toDouble() {
+        return (double) numerator / denominator;
+    }
+}
+
+class Circle {
+    private RationalFraction centerX;
+    private RationalFraction centerY;
+    private double radius;
+
+    public Circle(RationalFraction centerX, RationalFraction centerY, double radius) {
+        this.centerX = centerX;
+        this.centerY = centerY;
+        this.radius = radius;
+    }
+
+    public double getArea() {
+        return Math.PI * radius * radius;
+    }
+
+    public double getPerimeter() {
+        return 2 * Math.PI * radius;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Circle circle1 = new Circle(new RationalFraction(1, 2), new RationalFraction(3, 4), 2.5);
+        Circle circle2 = new Circle(new RationalFraction(2, 3), new RationalFraction(5, 6), 3.0);
+        Circle circle3 = new Circle(new RationalFraction(1, 2), new RationalFraction(7, 8), 1.5);
+
+      
+        System.out.println("Ploshcha kola 1: " + circle1.getArea());
+        System.out.println("Perimetr kola 1: " + circle1.getPerimeter());
+
+      
+        Circle[] circles = {circle1, circle2, circle3};
+
+      
+        findCollinearCircles(circles);
+
+      
+        findLargestAndSmallest(circles);
+    }
+
+    public static void findCollinearCircles(Circle[] circles) {
+          }
+
+    public static void findLargestAndSmallest(Circle[] circles) {
+        Circle largestCircle = null;
+        Circle smallestCircle = null;
+        double maxArea = Double.MIN_VALUE;
+        double minArea = Double.MAX_VALUE;
+
+        for (Circle circle : circles) {
+            double area = circle.getArea();
+            if (area > maxArea) {
+                maxArea = area;
+                largestCircle = circle;
+            }
+            if (area < minArea) {
+                minArea = area;
+                smallestCircle = circle;
+            }
+        }
+
+        System.out.println("Naibilshiy za ploshcheu kolo: " + largestCircle.getArea());
+        System.out.println("Naimenshiy za ploshcheu kolo: " + smallestCircle.getArea());
+    }
+}
