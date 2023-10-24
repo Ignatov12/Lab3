@@ -1,0 +1,81 @@
+public class Interval {
+    private double start;
+    private double end;
+
+    public Interval(double start, double end) {
+        this.start = start;
+        this.end = end;
+    }
+
+       public Interval add(Interval other) {
+        return new Interval(this.start + other.start, this.end + other.end);
+    }
+
+    public Interval subtract(Interval other) {
+        return new Interval(this.start - other.end, this.end - other.start);
+    }
+
+    public Interval multiply(Interval other) {
+        double min = Math.min(Math.min(this.start * other.start, this.start * other.end),
+                               Math.min(this.end * other.start, this.end * other.end));
+        double max = Math.max(Math.max(this.start * other.start, this.start * other.end),
+                               Math.max(this.end * other.start, this.end * other.end));
+        return new Interval(min, max);
+    }
+
+    public Interval divide(Interval other) {
+        if (other.start <= 0 || other.end >= 0) {
+            throw new IllegalArgumentException("Division by interval containing zero.");
+        }
+        double min = Math.min(Math.min(this.start / other.start, this.start / other.end),
+                               Math.min(this.end / other.start, this.end / other.end));
+        double max = Math.max(Math.max(this.start / other.start, this.start / other.end),
+                               Math.max(this.end / other.start, this.end / other.end));
+        return new Interval(min, max);
+    }
+
+    public Interval intersect(Interval other) {
+        double newStart = Math.max(this.start, other.start);
+        double newEnd = Math.min(this.end, other.end);
+        if (newStart > newEnd) {
+            return null; 
+        }
+        return new Interval(newStart, newEnd);
+    }
+
+    public Interval union(Interval other) {
+        double newStart = Math.min(this.start, other.start);
+        double newEnd = Math.max(this.end, other.end);
+        return new Interval(newStart, newEnd);
+    }
+
+    public static double findMaxDistance(Interval[] intervals) {
+        double maxDistance = 0;
+        for (int i = 0; i < intervals.length; i++) {
+            for (int j = i + 1; j < intervals.length; j++) {
+                double distance = Math.abs(intervals[i].start - intervals[j].end);
+                maxDistance = Math.max(maxDistance, distance);
+            }
+        }
+        return maxDistance;
+    }
+
+    public static void main(String[] args) {
+        Interval interval1 = new Interval(2, 5);
+        Interval interval2 = new Interval(4, 7);
+
+        Interval sum = interval1.add(interval2);
+        System.out.println("Suma intervaliv: " + sum.start + " - " + sum.end);
+
+        Interval intersection = interval1.intersect(interval2);
+        if (intersection != null) {
+            System.out.println("Peretun intervaliv: " + intersection.start + " - " + intersection.end);
+        } else {
+            System.out.println("Intervalu ne peretunautsa.");
+        }
+
+        Interval[] intervals = {interval1, interval2};
+        double maxDistance = findMaxDistance(intervals);
+        System.out.println("Max vidstan intervaliv: " + maxDistance);
+    }
+}
